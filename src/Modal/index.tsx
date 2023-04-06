@@ -1,3 +1,4 @@
+import { Button } from "@/Button";
 import { useCallback } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 
@@ -123,7 +124,17 @@ export function Modal({
               {body}
             </div>
             {/* Footer */}
-            <div className="flex flex-col gap-2 p-10">{footer}</div>
+            <div className="flex flex-col gap-2 p-10">
+              <Button
+                disabled={disabled}
+                label={actionLabel}
+                secondary
+                fullWidth
+                large
+                onClick={handleSubmit}
+              />
+              {footer}
+            </div>
           </div>
         </div>
       </div>
