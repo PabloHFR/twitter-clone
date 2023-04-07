@@ -1,4 +1,4 @@
-import { Button } from "@/Button";
+import { Button } from "@/components/Button";
 import { useCallback } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 
