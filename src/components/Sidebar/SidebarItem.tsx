@@ -1,3 +1,5 @@
+import { useRouter } from "next/router";
+import { useCallback } from "react";
 import { IconType } from "react-icons";
 
 interface SidebarItemProps {
@@ -7,9 +9,25 @@ interface SidebarItemProps {
   onClick?: () => void;
 }
 
-export function SidebarItem({ label, href, icon: Icon }: SidebarItemProps) {
+export function SidebarItem({
+  label,
+  href,
+  icon: Icon,
+  onClick,
+}: SidebarItemProps) {
+  const router = useRouter();
+  const logoutHandler = useCallback(() => {
+    if (onClick) {
+      return onClick();
+    }
+
+    if (href) {
+      router.push(href);
+    }
+  }, [router, onClick, href]);
+
   return (
-    <div className="flex flex-row items-center">
+    <div onClick={logoutHandler} className="flex flex-row items-center">
       <div className="relative rounded-full h-14 w-14 flex items-center justify-center p-4 hover:bg-slate-300 hover:bg-opacity-10 cursor-pointer lg:hidden">
         <Icon size={28} color="white" />
       </div>
