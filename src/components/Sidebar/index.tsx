@@ -24,7 +24,7 @@ export function Sidebar() {
     },
     {
       label: "Profile",
-      href: "/users/:id",
+      href: `/users/${currentUser?.id}`,
       icon: FaUser,
       auth: true,
     },
