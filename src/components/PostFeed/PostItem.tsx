@@ -15,8 +15,6 @@ export function PostItem({ data, userId }: PostItemProps) {
   const router = useRouter();
   const loginModal = useLoginModal();
 
-  console.log(data);
-
   const { data: currentUser } = useCurrentUser();
 
   const goToUser = useCallback(
