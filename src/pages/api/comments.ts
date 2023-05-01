@@ -20,7 +20,7 @@ export default async function handler(
       throw new Error("Invalid ID");
     }
 
-    const comment = await prisma.comment.create({
+    const comment = await prisma?.comment.create({
       data: {
         body,
         userId: currentUser.id,
