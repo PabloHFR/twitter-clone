@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
+import prisma from "@/libs/prismadb";
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -9,30 +11,27 @@ export default async function handler(
   }
 
   try {
-    const { postId } = req.query;
+    const { userId } = req.query;
 
-    if (!postId || typeof postId !== "string") {
+    if (!userId || typeof userId !== "string") {
       throw new Error("Invalid ID");
     }
 
-    const post = await prisma?.post.findUnique({
+    const existingUser = await prisma.user.findUnique({
       where: {
-        id: postId,
+        id: userId,
       },
-      include: {
-        user: true,
-        comments: {
-          include: {
-            user: true,
-          },
-          orderBy: {
-            createdAt: "desc",
-          },
+    });
+
+    const followersCount = await prisma.user.count({
+      where: {
+        followingIds: {
+          has: userId,
         },
       },
     });
 
-    return res.status(200).json(post);
+    return res.status(200).json({ ...existingUser, followersCount });
   } catch (error) {
     console.log(error);
     return res.status(400).end();
